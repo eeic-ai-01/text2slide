@@ -21,7 +21,7 @@ class Pegasus:
         tokenizer = PegasusTokenizer.from_pretrained(model_name)
         model = PegasusForConditionalGeneration.from_pretrained(model_name).to(torch_device)
         batch = tokenizer.prepare_seq2seq_batch(src_text, truncation=True, padding='longest').to(torch_device)
-        translated = model.generate(**batch)
-        tgt_text = tokenizer.batch_decode(translated, skip_special_tokens=True)
+        result = model.generate(**batch)
+        tgt_text = tokenizer.batch_decode(result, skip_special_tokens=True)
 
         return tgt_text[0]
