@@ -11,10 +11,11 @@ colabに入っているpandocのバージョンアップをさせるのですが
   - standaloneを含めてありますのでインストール不要です
 - fasttext
   - pip install fasttextで取ってきたfasttextはうまく動きません。そのためgitで配布されているものをインストールします
-  - すでにgitからcloneしてきたfastTextフォルダがあります。インストールするには
+  - fastTextフォルダがない場合、`git clone https://github.com/facebookresearch/fastText.git`してください
+  - 終わったら/すでにfastTextフォルダがある場合、
     - cd fastText
     - pip install .
-  - してください。そのあと戻ってきてください
+  - でインストールしてください。そのあと戻ってきてください
 - janome
     - もうみんな知ってそうだけどIST環境ではpythonのバージョン的に最新のJanomeでは動かない
     - pip install Janome==0.3.10 だと動く
