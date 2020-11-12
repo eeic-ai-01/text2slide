@@ -4,7 +4,7 @@ from configparser import ConfigParser
 from transformers import BertTokenizer
 
 config = ConfigParser()
-config.read('./config.ini')
+config.read('/home/u00417/text2slide/summarization/extractive/SlideMan/config.ini')
 
 
 class JumanTokenizer:
@@ -43,12 +43,12 @@ class JapaneseWorker:
                                             do_basic_tokenize=False)
         self.cls_id = self.bert_tokenizer.vocab['[CLS]']
         self.mask_id = self.bert_tokenizer.vocab['[MASK]']
-        self.bert_model = 'model/Japanese/'
+        self.bert_model = '/home/u00417/text2slide/summarization/extractive/SlideMan/model/Japanese/'
 
         #self.cp = 'checkpoint/jp/cp_step_1200000.pt'
         #self.opt = 'checkpoint/jp/opt_step_1200000.pt'
-        self.cp =  'checkpoint/jp/cp_step_9000.pt'
-        self.opt =  'checkpoint/jp/opt_step_9000.pt'
+        self.cp =  '/home/u00417/text2slide/summarization/extractive/SlideMan/checkpoint/jp/cp_step_9000.pt'
+        self.opt =  '/home/u00417/text2slide/summarization/extractive/SlideMan/checkpoint/jp/opt_step_9000.pt'
 
     @staticmethod
     def linesplit(src):
@@ -72,7 +72,7 @@ class JapaneseWorker:
         src = remove_blank(src)
         src = remove_newline(src)
         src = remove_unknown(src)
-        src_line = re.split('。(?<!」)|！(?<!」)|？(?!」)', src)
+        src_line = re.split('。(?<!」)|！(?<!」)|？(?!」)|．(?<!」)', src)
         src_line = [x for x in src_line if x is not '']
         return src_line
 

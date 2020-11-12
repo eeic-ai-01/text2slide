@@ -131,3 +131,5 @@ dmypy.json
 *.pkl
 
 .DS_Store
+
+out_png/

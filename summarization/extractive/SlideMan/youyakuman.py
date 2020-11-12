@@ -2,15 +2,31 @@ import os
 import argparse
 from argparse import RawTextHelpFormatter
 
-from src.TestLoader import TestLoader
-from src.ModelLoader import ModelLoader
-from src.Summarizer import SummarizerIO
-from src.Translator import TranslatorY
-from src.LangFactory import LangFactory
-from src.PicturePicker import PicturePicker
-from src.PrintMarkdown import PrintMarkdown
+from .src.TestLoader import TestLoader
+from .src.ModelLoader import ModelLoader
+from .src.Summarizer import SummarizerIO
+from .src.Translator import TranslatorY
+from .src.LangFactory import LangFactory
+from .src.PicturePicker import PicturePicker
+from .src.PrintMarkdown import PrintMarkdown
 
 os.chdir('./')
+
+class Settings:
+    def __init__(self,n=3,lang="jp",super_long=True):
+        self.super_long=super_long
+        self.lang=lang 
+        self.n=n
+
+def YouyakuMan(rawtext,n=3):
+    args=Settings(n)
+    lf = LangFactory(args.lang)
+    translator = None if args.lang in lf.support_lang else TranslatorY()
+    data = TestLoader(rawtext, args.super_long, args.lang, translator).data
+    model = ModelLoader(lf.toolkit.cp, lf.toolkit.opt, lf.toolkit.bert_model)
+    summarizer = SummarizerIO(data, model, args.n,translator)
+    return summarizer.summaries
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(formatter_class=RawTextHelpFormatter,

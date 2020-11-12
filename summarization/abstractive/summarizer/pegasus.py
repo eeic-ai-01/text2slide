@@ -2,12 +2,13 @@ from transformers import PegasusForConditionalGeneration, PegasusTokenizer
 import torch
 
 class Pegasus:
-    def __init__(self):
-        pass
+    def __init__(self, model):
+        self.model = model
     
     def exec(self, text):
         src_text = [text]
-        model_name = 'google/pegasus-xsum'
+        model_name = self.model
+        #model_name = 'google/pegasus-xsum'
         #model_name = 'google/pegasus-large'
         #model_name = 'google/pegasus-cnn_dailymail'
         #model_name = 'google/pegasus-pubmed'

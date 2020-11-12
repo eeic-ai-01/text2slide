@@ -3,8 +3,8 @@ import torch.nn as nn
 from transformers import BertModel
 from torch.nn.init import xavier_uniform_
 
-from src.models.encoder import TransformerInterEncoder
-from src.models.optimizers import Optimizer
+from .encoder import TransformerInterEncoder
+from .optimizers import Optimizer
 
 
 def build_optim(args, model, checkpoint):
@@ -67,7 +67,7 @@ class Summarizer(nn.Module):
         self.to(device)
 
     def load_cp(self, pt):
-        self.load_state_dict(pt, strict=True)
+        self.load_state_dict(pt, strict=False)
 
     def forward(self, x, segs, clss, mask, mask_cls, sentence_range=None):
 

@@ -80,7 +80,7 @@ class Preprocess:
     def _split_line(self):
         # regex note: (?!...) Negative Lookahead
         # e.g. /foo(?!bar)/ for "foobar foobaz" get "foobaz" only
-        self.src_line = re.split('。(?<!」)|！(?<!」)|？(?!」)|．(?!」)', self.src_body)
+        self.src_line = re.split('。(?<!」)|！(?<!」)|？(?!」)|．(?<!」)', self.src_body)
         self.src_line = [x for x in self.src_line if x is not '']
 
     # step 2.

@@ -1,6 +1,6 @@
 from transformers import BertTokenizer
 
-from src.LangFactory import LangFactory
+from .LangFactory import LangFactory
 
 
 class TestLoader:

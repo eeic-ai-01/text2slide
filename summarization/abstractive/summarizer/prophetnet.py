@@ -13,6 +13,6 @@ class ProphetNet:
         inputs = tokenizer([text], return_tensors='pt')
 
         # Generate Summary
-        summary_ids = model.generate(inputs['input_ids'], num_beams=14, max_length=512, early_stopping=True)
+        summary_ids = model.generate(inputs['input_ids'])
         tgt_text = tokenizer.batch_decode(summary_ids, skip_special_tokens=True)
         return tgt_text[0].replace('[X_SEP] ', '\n')

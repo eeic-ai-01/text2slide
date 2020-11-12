@@ -1,7 +1,7 @@
 import torch
 
-from src.utils.utils import DictX
-from src.models.model_builder import Summarizer
+from .utils.utils import DictX
+from .models.model_builder import Summarizer
 
 
 class ModelLoader(Summarizer):
