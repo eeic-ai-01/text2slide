@@ -5,7 +5,7 @@ import argparse
 import sys
 
 def preprocess(_document):
-    document = _document.split('\n')
+    document = _document.split('\n\n')
     document = [paragraph for paragraph in document if paragraph != '']
     return document
 
@@ -54,6 +54,18 @@ def text2slide(document, output="output"):
     contents = {}
     pictures = {}
     for i, paragraph in enumerate(preprocessed_doc):
+        """
+        print(YouyakuMan(paragraph,3))
+        print(summarize.summarize(paragraph, 'google/pegasus-xsum'))
+        print(summarize.summarize(paragraph, 'google/pegasus-cnn_dailymail'))
+        print(summarize.summarize(paragraph, 'google/pegasus-large'))
+        print(summarize.summarize(paragraph, 'google/pegasus-reddit_tifu'))
+        try:
+            print(summarize.summarize(paragraph, 'prophetnet'))
+        except:
+            print("failed")
+        """
+        
         titles[i] = summarize.summarize(paragraph, 'google/pegasus-xsum')
         contents[i] = YouyakuMan(paragraph,3) #リスト形式で指定した数（以上）の抽出した文が返される
         pictures[i] = irasutoya(scraping(paragraph,i),i) #あってる
