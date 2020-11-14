@@ -1,6 +1,7 @@
 from summarization.abstractive import summarize
 from summarization.extractive.SlideMan.youyakuman import YouyakuMan
 from scraping.scraping import scraping,irasutoya
+from generate.generate import generate
 import argparse
 import sys
 
@@ -48,7 +49,6 @@ class PrintMarkdown:
 
             
 def text2slide(document, output="output"):
-    output += ".md"
     preprocessed_doc = preprocess(document)
     titles = {}
     contents = {}
@@ -69,8 +69,9 @@ def text2slide(document, output="output"):
         titles[i] = summarize.summarize(paragraph, 'google/pegasus-xsum')
         contents[i] = YouyakuMan(paragraph,3) #リスト形式で指定した数（以上）の抽出した文が返される
         pictures[i] = irasutoya(scraping(paragraph,i),i) #あってる
-    with open(output, mode='w', encoding='utf8', buffering=1) as outfile:
+    with open(output + ".md", mode='w', encoding='utf8', buffering=1) as outfile:
         PrintMarkdown(outfile,titles,contents,pictures)
+    generate(document, output)
 
 def main():
     parser = argparse.ArgumentParser(description="")

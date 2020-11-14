@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+# this program is outdated. 
+
 import re
 import sys
 import subprocess
