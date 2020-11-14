@@ -18,13 +18,13 @@ def generate(document, output):
     model = ft.load_model("./generate/" + model_name + ".model")
     labels, probs = model.predict(document.strip(), k=3)
 
-    rank = 0
+    rank = 1
     print("generating start")
     for label, prob in zip(labels, probs):
         category = label.replace("__label__", "")
         print("{0} category = {1} (probability = {2}) generating...".format(rank, category, prob))
+        subprocess.call(["pandoc", output + ".md", "-o", "{0}_{1}.pptx".format(output, rank), "--reference-doc=./generate/templates/{0}/{1}.pptx".format(model_name, category)])
         rank += 1
-        subprocess.call(["./generate/pandoc", output + ".md", "-o", "{0}_{1}.pptx".format(output, rank), "--reference-doc=./generate/templates/{0}/{1}.pptx".format(model_name, category)])
     print("finished")
 
 def wakati(text):
