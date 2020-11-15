@@ -4,6 +4,9 @@ from scraping.scraping import scraping,irasutoya
 from generate.generate import generate
 import argparse
 import sys
+import textproc
+
+import itertools
 
 def preprocess(_document):
     document = _document.split('\n\n')
@@ -54,21 +57,33 @@ def text2slide(document, output="output"):
     contents = {}
     pictures = {}
     for i, paragraph in enumerate(preprocessed_doc):
-        """
-        print(YouyakuMan(paragraph,3))
-        print(summarize.summarize(paragraph, 'google/pegasus-xsum'))
-        print(summarize.summarize(paragraph, 'google/pegasus-cnn_dailymail'))
-        print(summarize.summarize(paragraph, 'google/pegasus-large'))
-        print(summarize.summarize(paragraph, 'google/pegasus-reddit_tifu'))
-        try:
-            print(summarize.summarize(paragraph, 'prophetnet'))
-        except:
-            print("failed")
-        """
-        
         titles[i] = summarize.summarize(paragraph, 'google/pegasus-xsum')
-        contents[i] = YouyakuMan(paragraph,3) #リスト形式で指定した数（以上）の抽出した文が返される
+        titles[i] = textproc.tiltlize(titles[i])
+        titles[i] = textproc.desmasu2dadearu(titles[i])
+        contents_extractive = YouyakuMan(paragraph,3) #リスト形式で指定した数（以上）の抽出した文が返される
+        contents_abstractive = summarize.summarize(paragraph, 'google/pegasus-cnn_dailymail').split("。")
+        contents_abstractive = filter(lambda x: x != '', contents_abstractive)
+
+        contents_extractive = list(map(lambda x: textproc.desmasu2dadearu(x), contents_extractive))
+        contents_abstractive = list(map(lambda x: textproc.desmasu2dadearu(x), contents_abstractive))
+
+        SIMILARITY_TH = 88
+
+        for j, text_ext in enumerate(contents_extractive):
+            for text_abs in contents_abstractive:
+                print(text_ext, ' / ', text_abs)
+                similarity = textproc.calc_similarity(text_ext, text_abs)
+                print(similarity)
+                if similarity >= SIMILARITY_TH :
+                    if (len(text_ext) > len(text_abs)):
+                        contents_extractive[j] = text_abs
+                
+        contents[i] = contents_extractive
         pictures[i] = irasutoya(scraping(paragraph,i),i) #あってる
+    print("summarization result:\n---")
+    print(titles)
+    print(contents)
+    print("----")
     with open(output + ".md", mode='w', encoding='utf8', buffering=1) as outfile:
         PrintMarkdown(outfile,titles,contents,pictures)
     generate(document, output)

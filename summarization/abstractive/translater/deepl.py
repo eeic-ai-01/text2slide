@@ -20,6 +20,11 @@ class DeepLTransltator(Translater):
             "source_lang": frm, 
             "target_lang": to,
         }
+        print("calling deepl api")
         req = requests.post("https://api.deepl.com/v2/translate", data=payload)
         result = req.json()
-        return result["translations"][0]["text"]
+        try:
+            return result["translations"][0]["text"]
+        except:
+            print(result)
+            return "error"

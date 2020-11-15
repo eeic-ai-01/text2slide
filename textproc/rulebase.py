@@ -1,6 +1,7 @@
 from . import utils
+import re
 
-def desumasu(text):#ですますをだ・であるに変換
+def desmasu2dadearu(text):#ですますをだ・であるに変換
     """
     wakati,dic= utils.wakatize(text)
     for i in range(len(wakati)):
@@ -63,4 +64,5 @@ def sanitize(_doc):
 
 
 def tiltlize(text):
-	return text.replace('、', '').replace('。', '')
+	text = re.sub('[、。]', '', text)
+	return text

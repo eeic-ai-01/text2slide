@@ -1,5 +1,6 @@
 from transformers import PegasusForConditionalGeneration, PegasusTokenizer
 import torch
+import re
 
 class Pegasus:
     def __init__(self, model):
@@ -25,6 +26,6 @@ class Pegasus:
         result = model.generate(**batch)
         tgt_text = tokenizer.batch_decode(result, skip_special_tokens=True)
         if self.model == "google/pegasus-cnn_dailymail":
-            tgt_text[0].replace('<n>', '')
+            tgt_text[0] = re.sub('<n>', ' ',  tgt_text[0])
 
         return tgt_text[0]
