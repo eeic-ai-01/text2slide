@@ -1,1 +1,1 @@
-from . import rulebase
+from .rulebase import *

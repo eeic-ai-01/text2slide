@@ -24,5 +24,7 @@ class Pegasus:
         batch = tokenizer.prepare_seq2seq_batch(src_text, truncation=True, padding='longest').to(torch_device)
         result = model.generate(**batch)
         tgt_text = tokenizer.batch_decode(result, skip_special_tokens=True)
+        if self.model == "google/pegasus-cnn_dailymail":
+            tgt_text[0].replace('<n>', '')
 
         return tgt_text[0]

@@ -55,5 +55,12 @@ def taigendomize(text):
             break
     return "".join(wakati[:-idx])
 
-def seq2se2noise_sanitize(doc):
-    return sorted(set(doc), key=doc.index)
+def sanitize(_doc):
+	doc = _doc.copy()
+	for i, e in enumerate(doc):
+		doc[i] = e.strip()
+	return sorted(set(doc), key=doc.index)
+
+
+def tiltlize(text):
+	return text.replace('、', '').replace('。', '')

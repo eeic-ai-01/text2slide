@@ -4,6 +4,7 @@ if __package__ is None or __package__ == '':
 else:
     from . import summarizer
     from . import translater
+    import textproc
 
 def summarize(text, model):
     if 'pegasus' in model:
@@ -19,6 +20,8 @@ def summarize(text, model):
     trc = trans.translate_to_en(src)
     strc = ag.exec(trc)
     print(strc)
+    strc = textproc.sanitize(strc.split('.'))
+    strc = '.'.join(strc)
     result = trans.translate_to_ja(strc)
     
     return result
