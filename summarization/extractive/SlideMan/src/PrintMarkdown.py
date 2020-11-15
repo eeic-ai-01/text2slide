@@ -14,7 +14,7 @@ class PrintMarkdown:
         self.outfile.write("---\n")
         self.outfile.write("title: MarkdownでPowerPointスライド\n")
         self.outfile.write("subtitle: サブタイトル\n")
-        self.outfile.write("author:　実験1班\n")
+        self.outfile.write("author: 実験1班\n")
         self.outfile.write("---\n")
     def print_pages(self):
         def print_title(title):
