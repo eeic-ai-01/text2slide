@@ -1,0 +1,3 @@
+[submodule "summarization/question_generation/question_generator"]
+	path = summarization/question_generation/question_generator
+	url = https://github.com/AMontgomerie/question_generator
