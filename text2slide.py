@@ -5,12 +5,13 @@ from generate.generate import generate
 import argparse
 import sys
 import textproc
-
 import itertools
+from summarization.question_generation import qgenerator
+
 
 def preprocess(_document):
     document = _document.split('\n\n')
-    document = [paragraph for paragraph in document if paragraph != '']
+    document = [paragraph.strip() for paragraph in document if paragraph != '']
     return document
 
 
@@ -25,7 +26,7 @@ class PrintMarkdown:
         self.print_pages()
     def print_cover(self):
         self.outfile.write("---\n")
-        self.outfile.write("title: MarkdownでPowerPointスライド\n")
+        self.outfile.write("title: タイトル\n")
         self.outfile.write("subtitle: サブタイトル\n")
         self.outfile.write("author: 実験1班\n")
         self.outfile.write("---\n")
@@ -42,9 +43,9 @@ class PrintMarkdown:
             picture_path=self.pictures.get(i,None)
             print_title(self.titles[i])
             if picture_path: #画像がある場合
-                self.outfile.write(":::::::::::::: {.columns}\n::: {.column width=\"50%\"}\n")
+                self.outfile.write(":::::::::::::: {.columns}\n::: {.column width=\"65%\"}\n")
                 print_sentences(self.summaries[i])
-                self.outfile.write(":::\n::: {.column width=\"50%\"}\n")
+                self.outfile.write(":::\n::: {.column width=\"35%\"}\n")
                 print_picture(self.pictures[i])
                 self.outfile.write(":::\n::::::::::::::\n")
             else: #画像がない場合
@@ -57,9 +58,19 @@ def text2slide(document, output="output"):
     contents = {}
     pictures = {}
     for i, paragraph in enumerate(preprocessed_doc):
-        titles[i] = summarize.summarize(paragraph, 'google/pegasus-xsum')
-        titles[i] = textproc.tiltlize(titles[i])
-        titles[i] = textproc.desmasu2dadearu(titles[i])
+        summary_ja = summarize.summarize(paragraph, 'google/pegasus-xsum')
+        if '？' in summary_ja: #TODO
+            titles[i] = textproc.titleize(summary_ja, False)
+        else:
+            summary_en = summarize.translate_to_en(summary_ja) # キャッシュ済みなのでリクエストは飛ばない
+            title_en = qgenerator.generate(summary_en)
+            print(summarize.translate_to_ja(title_en))
+            if title_en != '':
+                titles[i] = textproc.titleize(summarize.translate_to_ja(title_en))
+            else:
+                titles[i] = textproc.titleize(summary_ja)
+            print(titles[i])
+        
         contents_extractive = YouyakuMan(paragraph,3) #リスト形式で指定した数（以上）の抽出した文が返される
         contents_abstractive = summarize.summarize(paragraph, 'google/pegasus-cnn_dailymail').split("。")
         contents_abstractive = filter(lambda x: x != '', contents_abstractive)
@@ -67,7 +78,14 @@ def text2slide(document, output="output"):
         contents_extractive = list(map(lambda x: textproc.desmasu2dadearu(x), contents_extractive))
         contents_abstractive = list(map(lambda x: textproc.desmasu2dadearu(x), contents_abstractive))
 
-        SIMILARITY_TH = 88
+        #contents_extractive = list(map(lambda x: textproc.simplify(x), contents_extractive))
+        #contents_abstractive = list(map(lambda x: textproc.simplify(x), contents_abstractive))
+
+        ###taigendome
+        contents_extractive = list(map(lambda x: textproc.taigendomize(x), contents_extractive))
+        contents_abstractive = list(map(lambda x: textproc.taigendomize(x), contents_abstractive))
+
+        SIMILARITY_TH = 0.88 #88ではなさそう
 
         for j, text_ext in enumerate(contents_extractive):
             for text_abs in contents_abstractive:
