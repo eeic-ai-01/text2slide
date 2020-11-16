@@ -72,7 +72,15 @@ class JapaneseWorker:
         src = remove_blank(src)
         src = remove_newline(src)
         src = remove_unknown(src)
-        src_line = re.split('。(?<!」)|！(?<!」)|？(?!」)|．(?<!」)', src)
+        src_line=re.split('。(?<!」)|！(?<!」)|？(?!」)|．(?<!」)', src)
+        """
+        src_line_tuple = re.findall('(.*?。)|(.*?！)|(.*?？)|(.*?．)', src)
+        src_line=[]
+        for t in src_line_tuple:
+            for _src in t:
+                if _src != "":
+                    src_line.append(_src)
+        """
         src_line = [x for x in src_line if x is not '']
         return src_line
 

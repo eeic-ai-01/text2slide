@@ -12,7 +12,7 @@ class PrintMarkdown:
         self.print_pages()
     def print_cover(self):
         self.outfile.write("---\n")
-        self.outfile.write("title: MarkdownでPowerPointスライド\n")
+        self.outfile.write("title: タイトル\n")
         self.outfile.write("subtitle: サブタイトル\n")
         self.outfile.write("author: 実験1班\n")
         self.outfile.write("---\n")
@@ -28,9 +28,9 @@ class PrintMarkdown:
             picture_path=self.pictures.get(i,None)
             print_title(self.titles[i])
             if picture_path: #画像がある場合
-                self.outfile.write(":::::::::::::: \{.columns\}\n::: \{.column width=\"50%\"\}\n")
+                self.outfile.write(":::::::::::::: \{.columns\}\n::: \{.column width=\"65%\"\}\n")
                 print_sentences(self.summaries[i])
-                self.outfile.write(":::\n::: \{.column width=\"50%\"\}\n")
+                self.outfile.write(":::\n::: \{.column width=\"35%\"\}\n")
                 print_picture(self.pictures[i])
                 self.outfile.write(":::\n::::::::::::::\n")
             else: #画像がない場合
