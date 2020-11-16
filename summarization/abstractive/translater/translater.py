@@ -27,6 +27,7 @@ class Translater(metaclass=ABCMeta):
         else:
             result = self._translate_to_ja(text)
             self.cache[self.hash(text)] = result
+            self.cache[self.hash(result)] = text
             return result
 
     def translate_to_en(self, text):
@@ -35,6 +36,7 @@ class Translater(metaclass=ABCMeta):
         else:
             result = self._translate_to_en(text)
             self.cache[self.hash(text)] = result
+            self.cache[self.hash(result)] = text
             return result
 
     @staticmethod
