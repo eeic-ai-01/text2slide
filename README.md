@@ -18,6 +18,9 @@ $ cd fastText
 $ pip install .
 ```
 
+### [pandoc](https://pandoc.org)のインストール
+https://pandoc.org/installing.html
+
 ### モデルなどの導入(抽出型要約について)
 #### BERT日本語pretrainモデルの読み込み
 [BERT日本語Pretrainedモデル — KUROHASHI-KAWAHARA LAB](http://nlp.ist.i.kyoto-u.ac.jp/index.php?BERT日本語Pretrainedモデル)
