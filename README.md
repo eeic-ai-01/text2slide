@@ -2,7 +2,7 @@
 
 ## 環境構築
 
-Python 3.8.6
+Python 3.8.6で動作を確認しています
 
 ```
 $ git clone https://github.com/eeic-ai-01/text2slide --recursive
@@ -13,9 +13,9 @@ $ python -m spacy download en
 
 pyenv環境の場合fasttextのみ手動でインストール必要があります．
 ```
-git clone https://github.com/facebookresearch/fastText.git
-cd fastText
-pip install .
+$ git clone https://github.com/facebookresearch/fastText.git
+$ cd fastText
+$ pip install .
 ```
 
 ### モデルなどの導入(抽出型要約について)
