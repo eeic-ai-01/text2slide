@@ -101,9 +101,7 @@ class TrainLoader:
                     # Drop the current dataset for decreasing memory
                     for i in range(self.batch_size):
                         rawdata = next(self.iterer)
-                        print(rawdata)
                         data = self.preprocessor(rawdata, self.input_len)
-                        print(data)
                         dataset.append(data)
                     batched_dataset = Batch(dataset=dataset, device=self.device)
                     return batched_dataset

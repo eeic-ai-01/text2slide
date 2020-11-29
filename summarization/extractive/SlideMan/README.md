@@ -1,10 +1,14 @@
-# SlideMan
+# YouyakuMan
 
  [![Unstable](https://poser.pugx.org/ali-irawan/xtra/v/unstable.svg)](*https://poser.pugx.org/ali-irawan/xtra/v/unstable.svg*)  [![License](https://poser.pugx.org/ali-irawan/xtra/license.svg)](*https://poser.pugx.org/ali-irawan/xtra/license.svg*)
 
 ### Introduction
-文書を入力すると，段落ごとにスライドにまとめてくれるモデルです．
-要約部分には[YouyakuMan](https://github.com/neilctwu/YouyakuMan)を利用しています．
+
+This is an one-touch extractive summarization machine.
+
+using BertSum as summatization model, extract top N important sentences.
+
+![img](https://cdn-images-1.medium.com/max/800/1*NRamBWCtYuS8U6pqpnDiJQ.png)
 
 ---
 
@@ -13,10 +17,9 @@
 #### General requirement
 
 ```
-pip3 install torch
-pip3 install transformers
-pip3 install googletrans
-pip3 install bs4
+pip install torch
+pip install transformers
+pip install googletrans
 ```
 
 #### Japanese specific requirement

@@ -50,7 +50,7 @@ if __name__ == '__main__':
         torch.manual_seed(args.seed)
         random.seed(args.seed)
 
-    def train_loader_fct(): #読み込み部分は共通
+    def train_loader_fct():
         return TrainLoader(args.data_folder, 512, args.batch_size, device=device, shuffle=True)
 
     model = Summarizer(args, './model/Japanese/', device, train=True)
