@@ -1,6 +1,6 @@
 [submodule "summarization/question_generation/question_generator"]
 	path = summarization/question_generation/question_generator
 	url = https://github.com/eeic-ai-01/question_generator
-[submodule "summarization/extractive/YouyakuMan"]
-	path = summarization/extractive/YouyakuMan
+[submodule "summarization/extractive/SlideMan"]
+	path = summarization/extractive/SlideMan
 	url = https://github.com/eeic-ai-01/YouyakuMan
