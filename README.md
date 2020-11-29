@@ -32,7 +32,13 @@ summarization/extractive/SlideMan/config.iniに、jumanpp、vocab.txt、jumandic
 #### wikihowデータにより学習させたモデルの読み込み
 [ここ](https://drive.google.com/drive/folders/1dTXvupaJHumT_0_bFDb6tXoKgUaWmkNZ?usp=sharing)からcp_step_9000.ptとopt_step_9000.ptをダウンロードし、summarization/extractive/SlideMan/checkpoint/jp/に置く。
 summarization/extractive/SlideMan/src/LangFactory.pyの50行目、51行目にその絶対パスを入力する。
+#### 日本語wikipediaのコーパスデータの導入
 
 ### DeepL API キーの登録
 一部の要約に英語向けのモデルを使用しているため`.env`にDeepL APIを登録する必要があります．
 
+## 実行例
+
+```
+python text2slide.py --input example/text.in
+```
