@@ -11,7 +11,7 @@ $ pip install -r requirements.txt
 $ python -m spacy download en
 ```
 
-pyenv環境の場合fasttextのみ手動でインストール必要があります．
+pyenv環境の場合fasttextのみ手動でインストールする必要があります．
 ```
 $ git clone https://github.com/facebookresearch/fastText.git
 $ cd fastText
