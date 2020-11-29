@@ -41,5 +41,5 @@ summarization/extractive/SlideMan/src/LangFactory.pyの50行目、51行目にそ
 ## 実行例
 
 ```
-python text2slide.py --input example/text.in
+$ python text2slide.py --input example/test.in
 ```
